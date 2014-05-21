@@ -29,6 +29,11 @@ public class NullBuildView implements BuildViewModel {
     }
 
     @Override
+    public boolean isDisabled() {
+        return false;
+    }
+
+    @Override
     public Duration elapsedTime() {
         return null;
     }

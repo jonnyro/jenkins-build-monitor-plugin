@@ -208,7 +208,7 @@ public class JobViewTest {
         for (Result result : asFollows(FAILURE, ABORTED, NOT_BUILT, UNSTABLE)) {
             view = JobView.of(a(job().whereTheLast(build().finishedWith(result))));
 
-            assertThat(view.status(), containsString("failing"));
+            assertThat(view.status(), containsString("failure"));
         }
     }
 
@@ -269,7 +269,7 @@ public class JobViewTest {
         );
 
         for (JobView view : views) {
-            assertThat(view.status(), containsString("failing"));
+            assertThat(view.status(), containsString("failure"));
             assertThat(view.status(), containsString("running"));
         }
     }
@@ -295,7 +295,7 @@ public class JobViewTest {
                 andThePrevious(build().isStillBuilding()).
                 andThePrevious(build().finishedWith(FAILURE))));
 
-        assertThat(view.status(), containsString("failing"));
+        assertThat(view.status(), containsString("failure"));
     }
 
     @Test
@@ -426,7 +426,7 @@ public class JobViewTest {
         assertThat(view.estimatedDuration(), is(""));
         assertThat(view.progress(),          is(0));
         assertThat(view.culprits(),          hasSize(0));
-        assertThat(view.status(),            is("failing"));
+        assertThat(view.status(), is("failure"));
         assertThat(view.isClaimed(),         is(false));
         assertThat(view.hasKnownFailures(),  is(false));
     }

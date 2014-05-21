@@ -11,6 +11,8 @@ public interface BuildViewModel {
     public Result result();
 
     public boolean isRunning();
+
+    public boolean isDisabled();
     public Duration elapsedTime();
     public Duration duration();
     public Duration estimatedDuration();

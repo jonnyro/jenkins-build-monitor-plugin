@@ -96,19 +96,20 @@ h2 {
     margin: 0 0 0.5em 0;
 }
 
-.build-monitor .successful { background-color:darkgreen; }
-.build-monitor .failing    { background-color:red; }
-.build-monitor .unstable    { background-color:Orange; }
-.build-monitor .not_build    { background-color:grey; }
-.build-monitor .aborted    { background-color:darkgrey; }
-.build-monitor .claimed    { background-color: #fe5e00; }
-.build-monitor .unknown    { background-color:darkred; }
+.build-monitor .success { background-color: darkgreen; }
+.build-monitor .failure { background-color: darkred; }
+.build-monitor .unstable { background-color: #ccaa00; }
+.build-monitor .not_built { background-color: #555555; }
+.build-monitor .aborted { background-color: #555555; }
+.build-monitor .claimed { background-color: #fe5e00; }
+.build-monitor .unknown { background-color: #555555; }
+.build-monitor .disabled { background-color: #555555; }
 
 /*
  * Striped background patterns inspired by Lea Verou
  * http://lea.verou.me/2010/12/checkered-stripes-other-background-patterns-with-css3-gradients/
  */
-.build-monitor .colour-blind-mode .failing,
+.build-monitor .colour-blind-mode .failure,
 .build-monitor .colour-blind-mode .unknown,
 .build-monitor .colour-blind-mode .claimed {
     -webkit-background-size: 50px 50px;
@@ -116,10 +117,10 @@ h2 {
     background-size:         50px 50px; /* Controls the size of the stripes */
 }
 
-.build-monitor .colour-blind-mode .successful { }
+.build-monitor .colour-blind-mode .success { }
 
 .build-monitor .colour-blind-mode .unknown,
-.build-monitor .colour-blind-mode .failing {
+.build-monitor .colour-blind-mode .failure {
     background-image: -webkit-gradient(linear, 0 100%, 100% 0,
         color-stop(.25, rgba(255, 255, 255, .2)), color-stop(.25, transparent),
         color-stop(.5, transparent), color-stop(.5, rgba(255, 255, 255, .2)),
@@ -222,7 +223,7 @@ h2 {
 .build-monitor .meta .culprits li:after { content: ","; }
 .build-monitor .meta .culprits li:last-child:after { content: ""; }
 
-.build-monitor .failing ul.culprits li:first-child:before {
+.build-monitor .failure ul.culprits li:first-child:before {
     content: "Possible Culprits: ";
 }
 
@@ -230,7 +231,7 @@ h2 {
 .build-monitor .meta .failures li:after { content: ","; }
 .build-monitor .meta .failures li:last-child:after { content: ""; }
 
-.build-monitor .failing ul.failures li:first-child:before {
+.build-monitor .failure ul.failures li:first-child:before {
     content: "Identified Problems: ";
 }
 
@@ -393,10 +394,10 @@ h2 {
 
 .build-monitor ul#job-views>li {
     position:relative;
-    /*border-radius:10px;*/
+    border-radius:10px;
     overflow: hidden;
-    /*-webkit-box-shadow: 2px 2px 1px rgba(0,0,0,0.5);
-    box-shadow: 2px 2px 1px rgba(0,0,0,0.5);*/
+    -webkit-box-shadow: 2px 2px 1px rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 1px rgba(0,0,0,0.5);
 }
 
 .build-monitor ul#job-views .progress {
@@ -411,14 +412,29 @@ h2 {
     display:none;
 }
 
-.build-monitor ul#job-views .successful > .progress {
-    -webkit-animation: forSuccessful 2.25s 2 alternate;
+.build-monitor ul#job-views .success > .progress {
+    -webkit-animation: forSuccess 2.25s 2 alternate;
     background-color: green;
 }
 
-.build-monitor ul#job-views .failing > .progress {
-    -webkit-animation: forFailing 2.25s 2 alternate;
+.build-monitor ul#job-views .failure > .progress {
+    -webkit-animation: forFailure 2.25s 2 alternate;
     background-color: firebrick;
+}
+
+.build-monitor ul#job-views .unstable > .progress {
+    -webkit-animation: forUnstable 2.25s 2 alternate;
+    background-color: #f2ca00;
+}
+
+.build-monitor ul#job-views .not_built > .progress {
+    -webkit-animation: forNotBuilt 2.25s 2 alternate;
+    background-color: gray;
+}
+
+.build-monitor ul#job-views .aborted > .progress {
+    -webkit-animation: forAborted 2.25s 2 alternate;
+    background-color: gray;
 }
 
 .build-monitor ul#job-views .claimed > .progress {
@@ -426,9 +442,18 @@ h2 {
     background-color: #fe7600;
 }
 
-@-webkit-keyframes forSuccessful { 0% {background-color: green;} 100% {background-color: limegreen;} }
-@-webkit-keyframes forFailing { 0% {background-color: firebrick;} 100% {background-color: red;} }
+.build-monitor ul#job-views .unknown > .progress {
+    -webkit-animation: forUnknown 2.25s 2 alternate;
+    background-color: gray;
+}
+
+@-webkit-keyframes forSuccess { 0% {background-color: green;} 100% {background-color: limegreen;} }
+@-webkit-keyframes forFailure { 0% {background-color: firebrick;} 100% {background-color: red;} }
+@-webkit-keyframes forUnstable { 0% {background-color: #f2ca00;} 100% {background-color: #ffd400;} }
+@-webkit-keyframes forNotBuilt { 0% {background-color: gray;} 100% {background-color: darkgray;} }
+@-webkit-keyframes forAborted { 0% {background-color: gray;} 100% {background-color: darkgray;} }
 @-webkit-keyframes forClaimed { 0% {background-color: #fe7600; } 100% { background-color: orange; } }
+@-webkit-keyframes forUnknown { 0% {background-color: gray;} 100% {background-color: darkgray;} }
 
 /*
  *   Modal

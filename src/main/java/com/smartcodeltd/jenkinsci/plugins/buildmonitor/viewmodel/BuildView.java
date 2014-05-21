@@ -13,6 +13,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import hudson.model.AbstractProject;
+import hudson.model.Job;
+
 public class BuildView implements BuildViewModel {
 
     private final Run<?,?> build;
@@ -50,6 +53,19 @@ public class BuildView implements BuildViewModel {
 
     private boolean isRunning(Run<?, ?> build) {
         return (build.hasntStartedYet() || build.isBuilding() || build.isLogUpdated());
+    }
+
+    @Override
+    public boolean isDisabled() {
+        return isDisabled(this.build);
+    }
+
+    private boolean isDisabled(Run<?, ?> build) {
+        final Job<?, ?> job = build.getParent();
+        if (job instanceof AbstractProject) {
+            return ((AbstractProject) job).isDisabled();
+        }
+        return false;
     }
 
     @Override

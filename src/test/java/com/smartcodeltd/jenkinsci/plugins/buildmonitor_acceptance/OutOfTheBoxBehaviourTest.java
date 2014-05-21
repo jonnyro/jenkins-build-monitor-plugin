@@ -28,7 +28,7 @@ public class OutOfTheBoxBehaviourTest extends AcceptanceTest {
         browser.get(urlFor("view/Build Monitor"));
         BuildMonitor bm = new BuildMonitor(browser.findElement(By.className("build-monitor")));
 
-        assertThat(bm.job("example-build").status(), is("successful"));
-        assertThat(bm.job("example-acceptance").status(), is("failing"));
+        assertThat(bm.job("example-build").status(), is("success"));
+        assertThat(bm.job("example-acceptance").status(), is("failure"));
     }
 }
